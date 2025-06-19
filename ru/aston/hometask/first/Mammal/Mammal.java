@@ -1,5 +1,7 @@
 package aston.hometask.first.Mammal;
 
-/// Млекопитающее
 public abstract class Mammal extends Animal implements Backbone {
+    public void feed() {
+        System.out.println("*Млекопитающее кормит молоком*");
+    }
 }
