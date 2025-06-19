@@ -1,6 +1,6 @@
 package aston.hometask.first.Mammal;
 
-public abstract class Fish extends Animal implements Water {
+public class Fish extends Animal implements Water {
     @Override
     public void makeSound() {
         System.out.println("*Рыба скромно молчит...*");
