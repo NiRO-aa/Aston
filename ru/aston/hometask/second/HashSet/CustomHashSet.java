@@ -3,9 +3,11 @@ package aston.hometask.second.HashSet;
 public class CustomHashSet <T> {
     private Node[] table;
     private final int START_SIZE = 16;
+    private int tableSize;
     private int busyBucket = 0;
 
     public CustomHashSet() {
+        tableSize = START_SIZE;
         table = new Node[START_SIZE];
     }
 
@@ -15,12 +17,13 @@ public class CustomHashSet <T> {
         return value.hashCode();
     }
     private int getIndex(int hash) {
-        int index = hash & (table.length - 1);
-        return index;
+        return hash & (tableSize - 1);
     }
     private boolean addNode(int index, Node node) {
-        if (busyBucket == table.length)
+        if (busyBucket == tableSize) {
             resize();
+            index = getIndex(node.hash);
+        }
 
         Node oldNode = table[index];
         if (oldNode == null) {
@@ -47,7 +50,7 @@ public class CustomHashSet <T> {
         if (currentNode == null)
             return false;
 
-        if (currentNode.hash == node.hash || currentNode.value.equals(node.value)) {
+        if (currentNode.hash == node.hash && currentNode.value.equals(node.value)) {
             table[index] = currentNode.next;
             if (table[index] == null)
                 busyBucket--;
@@ -57,7 +60,7 @@ public class CustomHashSet <T> {
             Node prevNode = currentNode;
             currentNode = currentNode.next;
             while (currentNode != null) {
-                if (currentNode.hash == node.hash || currentNode.value.equals(node.value)) {
+                if (currentNode.hash == node.hash && currentNode.value.equals(node.value)) {
                     prevNode.next = currentNode.next;
                     return true;
                 }
@@ -80,9 +83,10 @@ public class CustomHashSet <T> {
     }
 
     private void resize() {
-        Node[] newTable = new Node[table.length * 2];
+        tableSize = tableSize * 2;
+        Node[] newTable = new Node[tableSize];
 
-        for (int i = 0; i < table.length; i++) {
+        for (int i = 0; i < tableSize / 2; i++) {
             Node oldNode = table[i];
             while (oldNode != null) {
                 int index = getIndex(oldNode.hash);
@@ -105,7 +109,7 @@ public class CustomHashSet <T> {
         StringBuilder builder = new StringBuilder();
         builder.append("[");
 
-        for (int i = 0; i < table.length; i++) {
+        for (int i = 0; i < tableSize; i++) {
             Node node = table[i];
             while (node != null) {
                 builder.append(node.value.toString()).append(", ");
@@ -119,12 +123,12 @@ public class CustomHashSet <T> {
         return builder.toString();
     }
 
-    private class Node <T> {
+    private class Node <S> {
         int hash;
-        T value;
+        S value;
         Node next;
 
-        public Node(int hash, T value) {
+        public Node(int hash, S value) {
             this.hash = hash;
             this.value = value;
         }
