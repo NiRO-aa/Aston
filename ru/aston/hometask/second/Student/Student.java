@@ -1,17 +1,26 @@
 package aston.hometask.second.Student;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
-    public String name;
-    public int age;
-    public List<Book> books = new ArrayList<>();
+    private String name;
+    private int age;
+    private List<Book> books;
 
     public Student(String name, int age, List<Book> books) {
         this.name = name;
         this.age = age;
         this.books = books;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public List<Book> getBooks() {
+        return books;
     }
 
     @Override
