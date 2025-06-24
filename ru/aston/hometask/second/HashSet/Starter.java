@@ -9,17 +9,21 @@ public class Starter {
         set.add(null);
         System.out.println("Попытка добавить null: " + set);
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 20; i++) {
             set.add(i);
+        }
         System.out.println("Добавление уникальных элементов: " + set);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++) {
             set.add(i);
+        }
         System.out.println("Попытка добавить повторяющиеся элементы: " + set);
 
-        for (int i = 0; i < 100; i++)
-            if (i % 2 == 0)
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
                 set.remove(i);
+            }
+        }
         System.out.println("Удаление элементов: " + set);
     }
 }
