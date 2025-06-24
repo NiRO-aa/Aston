@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Starter {
     public static void main(String[] args) {
-        CustomList<String> list = new CustomList<>();
+        CustomLinkedList<String> list = new CustomLinkedList<>();
         System.out.println("Пустой list:\n" + list);
 
         for (int i = 0; i < 5; i++)
