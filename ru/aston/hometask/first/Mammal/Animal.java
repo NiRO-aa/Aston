@@ -1,5 +1,6 @@
 package aston.hometask.first.Mammal;
 
-/// Животное
 public abstract class Animal {
+    abstract void makeSound();
+    abstract void move();
 }
