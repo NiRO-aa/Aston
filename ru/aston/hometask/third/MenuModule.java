@@ -2,36 +2,39 @@ package aston.hometask.third;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class MenuModule {
 
-    private BufferedReader reader;
-    private String choice;
+    private final BufferedReader reader;
+    private Choice choice;
 
-    public MenuModule() {
-        choice = "";
-        reader = new BufferedReader(new InputStreamReader(System.in));
+    public MenuModule(BufferedReader reader) {
+        choice = Choice.READ;
+        this.reader = reader;
     }
 
-    public void choose() {
+    public void choose() throws IOException {
         try {
             System.out.print("Выберите режим работы:\n 1. Запись в файл\n 2. Чтение из файла" +
                     "\n Для выхода введите любой другой символ.\n> ");
-            choice = reader.readLine().trim();
+            switch (reader.readLine().trim()) {
+                case "1" -> choice = Choice.WRITE;
+                case "2" ->  choice = Choice.READ;
+                default -> choice = Choice.CLOSE;
+            }
         } catch (IOException exception) {
             System.out.println("При выборе режима работы произошла ошибка!\n"
                     + exception.getMessage());
-            choice = "";
+            choice = Choice.CLOSE;
         }
     }
 
     public boolean isReading() {
-        return choice.equals("2");
+        return choice.equals(Choice.READ);
     }
 
     public boolean isWriting() {
-        return choice.equals("1");
+        return choice.equals(Choice.WRITE);
     }
 
 }

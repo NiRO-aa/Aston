@@ -1,20 +1,22 @@
 package aston.hometask.third;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class WriterModule {
 
     private StringBuilder builder;
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
-    public WriterModule() {
+    public WriterModule(BufferedReader reader) {
         builder = new StringBuilder();
-        reader = new BufferedReader(new InputStreamReader(System.in));
+        this.reader = reader;
     }
 
     public void writeData(File file) throws CustomException {
-        try {
-            FileWriter writer = new FileWriter(file);
+        try (FileWriter writer = new FileWriter(file)) {
             System.out.print("Введите текст, который хотите сохранить в файле " +
                     "(для окончания ввода нажмите Enter).\nДля выхода из режима ввода введите \"q\".\n> ");
             String line;
@@ -23,7 +25,6 @@ public class WriterModule {
                 builder.append(line).append("\n");
             }
             writer.write(builder.toString());
-            writer.close();
         } catch (IOException exception) {
             throw new CustomException("Произошла ошибка при записи в файл!\n" + exception.getMessage());
         }

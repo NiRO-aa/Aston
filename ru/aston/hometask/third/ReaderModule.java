@@ -8,8 +8,7 @@ import java.io.IOException;
 public class ReaderModule {
 
     public void readData(File file) throws CustomException {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             System.out.println("Содержимое файла:");
             while ((line = reader.readLine()) != null) {
