@@ -17,11 +17,7 @@ public class MenuModule {
         try {
             System.out.print("Выберите режим работы:\n 1. Запись в файл\n 2. Чтение из файла" +
                     "\n Для выхода введите любой другой символ.\n> ");
-            switch (reader.readLine().trim()) {
-                case "1" -> choice = Choice.WRITE;
-                case "2" ->  choice = Choice.READ;
-                default -> choice = Choice.CLOSE;
-            }
+            choice = Choice.from(reader.readLine().trim());
         } catch (IOException exception) {
             System.out.println("При выборе режима работы произошла ошибка!\n"
                     + exception.getMessage());
